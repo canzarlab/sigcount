@@ -56,11 +56,11 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -fexceptions -DIL_STD -Wall -Wextr
 set(CMAKE_Fortran_FLAGS "-c -ffixed-form")
 
 #add_executable(CIDANE ./source/CIDANE.C ${sources})
-#add_executable(exonRefine ./contrib/exonRefine/exonRefine.cpp)
+add_executable(exonRefine ./source/exonRefine.cpp)
 add_executable(sigcount ./source/sigcount.cpp)
 
 #target_link_libraries(CIDANE glmnet ${CPLEX_LIBRARIES} ${GSL_LIBRARIES} ${SEQAN_LIBRARIES} "-lm -pthread")
 target_link_libraries(sigcount ${SEQAN_LIBRARIES})
-#target_link_libraries(exonRefine ${SEQAN_LIBRARIES})
+target_link_libraries(exonRefine ${SEQAN_LIBRARIES})
 
 #### end
