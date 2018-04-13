@@ -112,7 +112,7 @@ struct Options
         minMatchLength = 1;
         maxGapLength = std::numeric_limits<int>::max();
         skipMulti = false;
-        rMode = SINGLE;
+        rMode = MIXED;
         gMode = GROUPBOTH;
         boundaryTolerance = 0;
         useStrandInfo = false;
@@ -1294,15 +1294,18 @@ void intervalIndexTransform(const TIntervalList &subexons,
                 }
 #endif
                 //infer fragment length if rightmost segment of left read equals leftmost segment of right read or they are neighbors
-                if (back(readTmp.indicesLeft) == front(readTmp.indicesRight)) //same segment
+                if (!empty(readTmp.indicesRight))
                 {
-                  ++innerDistMap[static_cast<int>(front(readsIt->intervalsRight).i1) - static_cast<int>(back(readsIt->intervalsLeft).i2)];
-                }
-                else if (1 + back(readTmp.indicesLeft) == front(readTmp.indicesRight)) //neighboring segments
-                {
-                  int gapLen = (static_cast<int>(subexonsTmp[intervalsInv[back(readTmp.indicesLeft)]].i2)  - static_cast<int>(back(readsIt->intervalsLeft).i2)) +
-                               (static_cast<int>(front(readsIt->intervalsRight).i1) - static_cast<int>(subexonsTmp[intervalsInv[front(readTmp.indicesRight)]].i1));
-                  ++innerDistMap[gapLen];
+                    if (back(readTmp.indicesLeft) == front(readTmp.indicesRight)) //same segment
+                    {
+                        ++innerDistMap[static_cast<int>(front(readsIt->intervalsRight).i1) - static_cast<int>(back(readsIt->intervalsLeft).i2)];
+                    }
+                    else if (1 + back(readTmp.indicesLeft) == front(readTmp.indicesRight)) //neighboring segments
+                    {
+                        int gapLen = (static_cast<int>(subexonsTmp[intervalsInv[back(readTmp.indicesLeft)]].i2)  - static_cast<int>(back(readsIt->intervalsLeft).i2)) +
+                                (static_cast<int>(front(readsIt->intervalsRight).i1) - static_cast<int>(subexonsTmp[intervalsInv[front(readTmp.indicesRight)]].i1));
+                        ++innerDistMap[gapLen];
+                    }
                 }
 
                 if (strand == 1)
