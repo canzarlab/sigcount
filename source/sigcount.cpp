@@ -112,7 +112,7 @@ struct Options
         minMatchLength = 1;
         maxGapLength = std::numeric_limits<int>::max();
         skipMulti = false;
-        rMode = MIXED;
+        rMode = SINGLE;
         gMode = GROUPBOTH;
         boundaryTolerance = 0;
         useStrandInfo = false;
