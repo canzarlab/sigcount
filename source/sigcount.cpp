@@ -326,7 +326,7 @@ namespace seqan
 typedef String<TInterval, Alloc<Exact> > TIntervalList;
 typedef Iterator<TIntervalList>::Type TIntervalListIterator;
 typedef Iterator<TIntervalList const>::Type TIntervalListConstIterator;
-typedef std::unordered_map<int, int> TLenDistMap;
+typedef std::unordered_map<int, long long int> TLenDistMap;
 
 struct TSplitReadIntervals
 {
@@ -2111,7 +2111,7 @@ int doWork(GffFileIn & gffInFile,
 
     //first read length
     double meanRl = 0;
-    unsigned numR = 0;
+    unsigned long long numR = 0;
     for (TLenDistMap::const_iterator it = readLenMap.begin(); it != readLenMap.end(); ++it)
     {
       meanRl += it->first * it->second;
